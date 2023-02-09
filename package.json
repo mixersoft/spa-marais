@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "@ml/marais",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "build:single-spa:app": "ng build app --configuration production",
-    "serve:single-spa:app": "ng s --project app --disable-host-check --port 9010 --live-reload false"
+    "serve:single-spa:app": "ng s --project app --disable-host-check --port 9011 --live-reload false"
   },
   "private": true,
   "dependencies": {

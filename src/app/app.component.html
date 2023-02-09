@@ -1,483 +1,287 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<div class="flex-block">
+  <iframe title="Libsyn Player" style="border: none" 
+    src="https://html5-player.libsyn.com/embed/episode/id/25253637/height/90/theme/custom/thumbnail/yes/direction/backward/render-playlist/no/custom-color/87A93A/" height="90" width="100%" scrolling="no"  allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+  </div>
 
-<style>
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 8px 0;
-  }
+<div class="flex-block">
+  <audio id="hyperplayer" class="hyperaudio-player" style="z-index: 5000000; position:relative; width:100%" 
+    type="audio/mp3" controls></audio>
+  </div>
 
-  p {
-    margin: 0;
-  }
+<div class="flex-fill-y scroll dashed-bottom">
+  <div id="hypertranscript" class="hyperaudio-transcript">
+    <div data-media-type="audio/mp3"
+      crossorigin="anonymous" 
+      data-media-src=""></div>
 
-  .spacer {
-    flex: 1;
-  }
-
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-  }
-
-  .toolbar img {
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo {
-    height: 40px;
-    margin: 0 8px;
-  }
-
-  .toolbar #youtube-logo {
-    height: 40px;
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo:hover,
-  .toolbar #youtube-logo:hover {
-    opacity: 0.8;
-  }
-
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  svg.material-icons {
-    height: 24px;
-    width: auto;
-  }
-
-  svg.material-icons:not(:last-child) {
-    margin-right: 8px;
-  }
-
-  .card svg.material-icons path {
-    fill: #888;
-  }
-
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px;
-  }
-
-  .card {
-    all: unset;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    background-color: #fafafa;
-    height: 40px;
-    width: 200px;
-    margin: 0 8px 16px;
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-    line-height: 24px;
-  }
-
-  .card-container .card:not(:last-child) {
-    margin-right: 0;
-  }
-
-  .card.card-small {
-    height: 16px;
-    width: 168px;
-  }
-
-  .card-container .card:not(.highlight-card) {
-    cursor: pointer;
-  }
-
-  .card-container .card:not(.highlight-card):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
-  }
-
-  .card-container .card:not(.highlight-card):hover .material-icons path {
-    fill: rgb(105, 103, 103);
-  }
-
-  .card.highlight-card {
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-    border: none;
-    width: auto;
-    min-width: 30%;
-    position: relative;
-  }
-
-  .card.card.highlight-card span {
-    margin-left: 60px;
-  }
-
-  svg#rocket {
-    width: 80px;
-    position: absolute;
-    left: -10px;
-    top: -24px;
-  }
-
-  svg#rocket-smoke {
-    height: calc(100vh - 95px);
-    position: absolute;
-    top: 10px;
-    right: 180px;
-    z-index: -10;
-  }
-
-  a,
-  a:visited,
-  a:hover {
-    color: #1976d2;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #125699;
-  }
-
-  .terminal {
-    position: relative;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 6px;
-    padding-top: 45px;
-    margin-top: 8px;
-    overflow: hidden;
-    background-color: rgb(15, 15, 16);
-  }
-
-  .terminal::before {
-    content: "\2022 \2022 \2022";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: rgb(58, 58, 58);
-    color: #c2c3c4;
-    width: 100%;
-    font-size: 2rem;
-    line-height: 0;
-    padding: 14px 0;
-    text-indent: 4px;
-  }
-
-  .terminal pre {
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-    color: white;
-    padding: 0 1rem 1rem;
-    margin: 0;
-  }
-
-  .circle-link {
-    height: 40px;
-    width: 40px;
-    border-radius: 40px;
-    margin: 8px;
-    background-color: white;
-    border: 1px solid #eeeeee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: 1s ease-out;
-  }
-
-  .circle-link:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  footer {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    line-height: 20px;
-  }
-
-  footer a {
-    display: flex;
-    align-items: center;
-  }
-
-  .github-star-badge {
-    color: #24292e;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    padding: 3px 10px;
-    border: 1px solid rgba(27,31,35,.2);
-    border-radius: 3px;
-    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-    margin-left: 4px;
-    font-weight: 600;
-  }
-
-  .github-star-badge:hover {
-    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
-    border-color: rgba(27,31,35,.35);
-    background-position: -.5em;
-  }
-
-  .github-star-badge .material-icons {
-    height: 16px;
-    width: 16px;
-    margin-right: 4px;
-  }
-
-  svg#clouds {
-    position: fixed;
-    bottom: -160px;
-    left: -230px;
-    z-index: -10;
-    width: 1920px;
-  }
-
-  /* Responsive Styles */
-  @media screen and (max-width: 767px) {
-    .card-container > *:not(.circle-link) ,
-    .terminal {
-      width: 100%;
-    }
-
-    .card:not(.highlight-card) {
-      height: 16px;
-      margin: 8px 0;
-    }
-
-    .card.highlight-card span {
-      margin-left: 72px;
-    }
-
-    svg#rocket-smoke {
-      right: 120px;
-      transform: rotate(-5deg);
-    }
-  }
-
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
-  }
-</style>
-
-<!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <img
-    width="40"
-    alt="Angular Logo"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-  />
-  <span>Welcome</span>
-    <div class="spacer"></div>
-    <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular" title="Twitter">
-      <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-        <rect width="400" height="400" fill="none"/>
-        <path d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23" fill="#fff"/>
-      </svg>
-    </a>
-    <a aria-label="Angular on YouTube" target="_blank" rel="noopener" href="https://youtube.com/angular" title="YouTube">
-      <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff">
-        <path d="M0 0h24v24H0V0z" fill="none"/>
-        <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/>
-      </svg>
-    </a>
+      <header><a href="https://podcast.duolingo.com/episode-84-paris-visite-du-marais">
+        Episode 84: Paris - Visite du Marais</a>
+      </header>
+        <article class="lang">
+          <p><span data-m="3513" lang="EN">
+            Ngofeen: It’s a warm spring morning in Paris, and Pascal Fonquernie is sipping a coffee by his living room window. For over 40 years, he’s lived in le Marais district on an old street called rue Charlot. It dates back to the 1600s, and like many streets from the time, it’s incredibly narrow. From his window, Pascal can see directly into the apartment of his neighbor across the street.
+          </span></p>
+        
+          <p><span data-m="0:35" lang="FR">
+            Pascal: Dans mon quartier, les rues sont très étroites. La rue où j'habite mesure seulement six mètres de large. Donc, quand je vois mon voisin d’en face, je finis toujours par lui parler. Je lui dis, par exemple : « Ah c’est sympa votre décoration ! » ou « Bravo pour vos jolies fleurs ! ». C’est comme un petit village, mais dans Paris.
+          </span></p>
+        
+          <p><span data-m="58303" lang="EN">
+            Ngofeen: Pascal’s neighborhood is called Le Marais. It’s the former royal district, where the Kings and Queens of France once lived. Pascal is an architecture buff, so he often marvels at the old streets and buildings. But what he loves most about the neighborhood is that it feels like a small town. Even though it's in the middle of a big city, small businesses, les petits commerces, bring people together.
+          </span></p>
+        
+          <p><span data-m="01:25" lang="FR">
+            Pascal: Grâce aux petites rues, les rencontres entre les habitants du quartier se font facilement, et ça permet aux voisins de se connaître. Il y a des petites boutiques, des cafés sympas, des salles de spectacle, et de bons restaurants… Tous ces petits commerces rendent le quartier très vivant.
+          </span></p>
+        
+          <p><span data-m="112581" lang="EN">
+            Ngofeen: Pascal loves his neighborhood so much that in 2000, he founded PARISMARAIS.com, a website, travel guide, and neighborhood map intended to be the definitive guide of where to eat, where to shop, and what to see in Le Marais. Today, we’ll follow Pascal to some of his favorite spots in the neighborhood to learn about its unique history and the different communities who live there.
+          </span></p>
+        
+          <p><span data-m="138000" lang="FR">
+            Pascal: J’aime le Marais depuis des années, et je ne pourrais pas m’imaginer vivre ailleurs. Je veux partager mon amour pour ce quartier avec le monde entier.
+          </span></p>
+        
+          <p><span data-m="151738" lang="EN">
+            Ngofeen: Bienvenue and welcome to the Duolingo French Podcast — I’m Ngofeen Mputubwele. We’ve heard from you, our listeners, about how you love to travel and discover new places… So, we’re dedicating a whole season to exploring one of the most charming and historic cities in the world: Paris. This season, we’ll follow locals into some of the city's most vibrant neighborhoods. We’ll get to explore the iconic landmarks, tastes, and sounds that make up the city of Paris. Pascal will be using intermediate French and I will be chiming in for context in English. If you miss something, you can always skip back and listen again — we also offer full transcripts at podcast.duolingo.com. And for this special season, you’ll be able to find images of each tour on our site. Now onto the episode.
+          </span></p>
+        
+          <p><span data-m="204788" lang="EN">
+            Ngofeen: The name “Marais” comes from the French word for “marsh,” because of the wet, soggy ground the neighborhood was built on. As a result, they couldn’t build metro stations underneath because the ground was too unstable, instable. To Pascal, this separates Le Marais from the newer neighborhoods that surround it.
+          </span></p>
+        
+          <p><span data-m="224000" lang="FR">
+            Pascal: Le sol sous le quartier du Marais est instable, alors il n’est pas traversé par les lignes du métro parisien. Les stations de métro entourent le Marais, mais ne sont pas à l’intérieur. Donc le quartier est un peu une enclave, séparée du reste de la ville.
+          </span></p>
+        
+          <p><span data-m="245594" lang="EN">
+            Ngofeen: To Pascal, Le Marais has always felt like a bit of an enclave, and at the heart of the neighborhood is a beautiful square: La Place des Vosges. It’s our first stop today, and one of Pascal’s favorite squares in all of Paris, with a classic garden, and rows of trees, des rangées d’arbres.
+          </span></p>
+        
+          <p><span data-m="264899" lang="FR">
+            Pascal: La place des Vosges est l’une des plus vieilles places de Paris. Les bâtiments tout autour forment une place carrée parfaite, et au milieu, il y a un petit parc, le square Louis XIII. C’est un jardin typiquement français, avec deux rangées d’arbres et quatre fontaines. Au centre de ce parc, il y a la statue du roi Louis XIII.
+          </span></p>
+        
+          <p><span data-m="293006" lang="EN">
+            Ngofeen: When Pascal first moved to Le Marais in 1981, he was in awe of la Place des Vosges. There’s a painting of this square on display at one of Pascal’s favorite museums, le musée Carnavalet. But walking through the real thing was like stepping back in time.
+          </span></p>
+        
+          <p><span data-m="312411" lang="FR">
+            Pascal: Quand j’étais plus jeune, j’étais fasciné par les peintures du Paris historique que j’avais vues au musée d'histoire de Paris, le musée Carnavalet. En me promenant Place des Vosges, je voyais les immeubles exactement comme ils étaient au 17e siècle. C’était comme entrer dans un livre d’histoire.
+          </span></p>
+        
+          <p><span data-m="336601" lang="EN">
+            Ngofeen: The square was commissioned in the early 1600s by French king Henri IV. It was the site of royal tournaments, parades, and celebrations.
+          </span></p>
+        
+          <p><span data-m="347554" lang="FR">
+            Pascal: L’architecture de la place n’a pas changé depuis 1612. C’est un des plus beaux exemples de l’architecture de l’époque. La place est entourée de 28 immeubles de style identique. On les reconnaît très facilement, avec leurs grands toits gris et leurs façades rouges et blanches, en brique et en pierre de taille. Deux immeubles sont plus hauts que les autres : le Pavillon du Roi, au sud, et le Pavillon de la Reine, au nord.
+          </span></p>
+        
+          <p><span data-m="384192" lang="EN">
+            Ngofeen: The 28 buildings are all made of red brick with rows of pierre de taille, blocks of limestone that, today, are a signature feature of Parisian architecture. The buildings are all linked by sidewalks protected by tall stone arches.
+          </span></p>
+        
+          <p><span data-m="402458" lang="FR">
+            Pascal: Au 17e siècle, ces trottoirs couverts permettaient aux habitants de sortir des immeubles et de se promener autour de la place en se protégeant de la pluie, du soleil… Ou pire, pour se protéger des déchets jetés par les fenêtres des immeubles.
+          </span></p>
+        
+          <p><span data-m="420959" lang="EN">
+            Ngofeen: The covered sidewalks around the square are home to art galleries, antique stores, a museum dedicated to the life of writer Victor Hugo, and several cafés. For a morning treat, Pascal recommends grabbing a pastry at café Mulot in the south of the square, then heading to a small door tucked away under an arcade in the southwest corner.
+          </span></p>
+        
+          <p><span data-m="444894" lang="FR">
+            Pascal: De l’extérieur, on ne voit qu’une petite porte assez discrète. Mais quand on pousse la porte, tout à coup, on se retrouve dans un magnifique jardin typiquement français, avec au fond l’Hôtel de Sully, un hôtel particulier du 17e siècle.
+          </span></p>
+        
+          <p><span data-m="464463" lang="EN">
+            Ngofeen: Hôtels particuliers are elegant private residences that were once the home of Parisian nobility, and there are many scattered around Le Marais. Today, many have been converted into chic office buildings or museums. To Pascal, the lovely public garden of l’Hôtel de Sully is one of the neighborhood’s hidden gems.
+          </span></p>
+        
+          <p><span data-m="485356" lang="FR">
+            Pascal: Ce jardin n’est pas très connu des touristes. Mais moi, je pense que c’est l’une des plus jolies visites que l’on puisse faire dans le Marais.
+          </span></p>
+        
+          <p><span data-m="497380" lang="EN">
+            Ngofeen: La Place des Vosges and its surrounding gardens are a wonderful place to spend a relaxing morning. And if you linger until lunchtime, you can head to one of Pascal’s favorite restaurants in the neighborhood. It’s called La Place Royale, after the square’s original name. Whenever he goes there, Pascal has a running joke with Charly, the head waiter.
+          </span></p>
+        
+          <p><span data-m="520257" lang="FR">
+            Pascal: Je lui demande toujours une table « en première classe, avec vue sur la mer ». C’est une façon amusante de demander une table avec vue sur la place. Quel meilleur endroit pour apprécier un excellent repas qu’une table avec vue sur la plus belle place de Paris ?
+          </span></p>
+        
+          <p><span data-m="542344" lang="EN">
+            Ngofeen: When Pascal first arrived in Le Marais, the neighborhood was not the chic, trendy place it is today. Nowadays, hip restaurants and luxury shops line the main commercial streets. But in the 1970s, many of the old buildings were dilapidated, délabrés, or occupied by squatters, des squatteurs. Rent in the neighborhood was very affordable.
+          </span></p>
+        
+          <p><span data-m="567678" lang="FR">
+            Pascal: Dans le passé, le Marais était un quartier pauvre et délabré. Il y avait des immeubles abandonnés qui étaient occupés par des squatteurs. Mais il y avait aussi des petits hôtels pas chers, où les ouvriers pouvaient louer une chambre au mois. C’était un quartier refuge.
+          </span></p>
+        
+          <p><span data-m="588288" lang="EN">
+            Ngofeen: Le Marais has long been known as a haven for marginalized and persecuted communities. Over the centuries, many generations of Parisians and immigrants have taken refuge here. For our next stop, Pascal is taking us to an area of Le Marais known as the Jewish Quarter. It’s about a 5-minute walk from la Place des Vosges, on a narrow street called rue des Rosiers, a shopping street, or rue commerçante.
+          </span></p>
+        
+          <p><span data-m="615575" lang="FR">
+            Pascal: La Rue des Rosiers est très connue, et elle est toujours pleine de monde. Elle a quelque chose que les autres rues commerçantes de Paris n’ont pas : certaines boutiques sont fermées le samedi, et ouvertes le dimanche.
+          </span></p>
+        
+          <p><span data-m="631433" lang="EN">
+            Ngofeen: Shops on rue des Rosiers and the surrounding streets are closed on Saturday, in observance of the Jewish Sabbath. They’re part of Paris’ oldest Jewish neighborhood, known as the Pletzl, the Yiddish word for “little square.”
+          </span></p>
+        
+          <p><span data-m="644938" lang="FR">
+            Pascal: En réalité, le “Pletzl” est un petit quartier entouré de quatre rues. Il y a plusieurs communautés juives qui sont arrivées dans le Marais les unes après les autres, pendant des siècles.
+          </span></p>
+        
+          <p><span data-m="659778" lang="EN">
+            Ngofeen: For centuries, European Jews saw France as a safe haven. But during World War II, it no longer was. Thousands of Jewish families were deported after a surprise raid known as “la rafle du Vel’ d’Hiv.” Every year in July, residents gather in le Marais to remember that painful time.
+          </span></p>
+        
+          <p><span data-m="682573" lang="FR">
+            Pascal: Chaque année, le 16 juillet, les habitants du quartier se réunissent dans le square du Temple pour honorer la mémoire des Juifs du Marais ; ceux qui ont été arrêtés et déportés pendant la rafle du Vel d’Hiv. C’est une période terrible de l’histoire du quartier.
+          </span></p>
+        
+          <p><span data-m="705131" lang="EN">
+            Ngofeen: After the war, many Jewish people from Eastern Europe and the Middle East settled in France and they rebuilt a vibrant community. By the time Pascal made his home in Le Marais in the early 80s, la rue des Rosiers buzzed with Jewish people shopping for books in tiny bookstores and traditional delicacies in Jewish bakeries and kosher butchers, des boucheries cachères.
+          </span></p>
+        
+          <p><span data-m="727493" lang="FR">
+            Pascal: Dans les années 80, le Marais était vraiment un quartier juif, avec une communauté très active et très présente. Il y avait des boulangeries et des boucheries cachères, plusieurs synagogues, et des librairies juives. En 1998, Le Musée d'Art et d'Histoire du Judaïsme a ouvert ses portes dans le quartier. C’est le plus grand musée français sur l'art et l'histoire des peuples juifs.
+          </span></p>
+        
+          <p><span data-m="763184" lang="EN">
+            Ngofeen: But The Jewish quarter has changed dramatically since then. Now, only a handful of kosher shops remain in the Pletzl.
+          </span></p>
+        
+          <p><span data-m="771227" lang="FR">
+            Pascal: Depuis quarante ans, les commerces ont beaucoup changé dans la rue des Rosiers. Il reste quelques pâtisseries juives traditionnelles, mais le reste, ce sont surtout des boutiques de vêtements et des restaurants de falafels.
+          </span></p>
+        
+          <p><span data-m="789626" lang="EN">
+            Ngofeen: Rising rents and gentrification have gradually pushed out many traditional Jewish businesses. Still, today Pascal notices a strong resilience and a sense of Jewish pride in the businesses that remain. Jewish bakeries paint their storefronts in bright colors. One proudly displays a large gold menorah in the shop window. And the most popular falafel joints, like L’As du Falafel, often have lines around the block!
+          </span></p>
+        
+          <p><span data-m="819231" lang="FR">
+            Pascal: Il y a toujours beaucoup de monde qui vient manger des falafels ! Mais il y a aussi une librairie juive, et plusieurs petites synagogues secrètes… On sent que l’histoire juive reste présente dans ces rues.
+          </span></p>
+        
+          <p><span data-m="834921" lang="EN">
+            Ngofeen: New Jewish-owned businesses are also popping up. Like Alfi, a hip new deli inspired by Tel Aviv street food. It’s rapidly gaining a loyal following.
+          </span></p>
+        
+          <p><span data-m="845900" lang="FR">
+            Pascal: Mais si la rue des Rosiers a beaucoup changé, des endroits comme Alfi montrent qu’il y a une nouvelle génération de commerçants juifs qui continue la tradition.
+          </span></p>
+        
+          <p><span data-m="860276" lang="EN">
+            Ngofeen: Next, we'll follow Pascal a few blocks east to another distinctive and historic part of le Marais: its LGBTQ community. The area is known as le quartier gay de Paris, the Gay quarter. It spans a few large streets clustered around a tiny, elbow-shaped one, la rue Sainte-Croix de la Bretonnerie.
+          </span></p>
+        
+          <p><span data-m="882828" lang="FR">
+            Pascal: Quand on arrive dans cette partie du Marais en juin, le mois de la Pride, on voit des drapeaux LGBT partout : devant les boutiques, sur les trottoirs, et aux fenêtres. C’est une ambiance très festive !
+          </span></p>
+        
+          <p><span data-m="901361" lang="EN">
+            Ngofeen: In the 70s and 80s, real estate costs in Le Marais were still low, attracting artists, creative types and fringe communities, des marginaux.
+          </span></p>
+        
+          <p><span data-m="911695" lang="FR">
+            Pascal: Le premier bar gay du Marais a ouvert ses portes en 1978. Il s'appelait Le Village. Les artistes, les gens du spectacle, les gays et tous les marginaux sont venus vivre dans les petits logements du quartier qui étaient encore bon marché.
+          </span></p>
+        
+          <p><span data-m="931351" lang="EN">
+            Ngofeen: With the new residents arrived Paris’ first LGBTQ bookstore, Les Mots à la Bouche, a cultural landmark. Gay performers and comedians, des humoristes, began performing on stage at local cafés and attracting crowds. That’s where Pascal first discovered Le Marais’ nightlife, la vie nocturne.
+          </span></p>
+        
+          <p><span data-m="954468" lang="FR">
+            Pascal: J’ai découvert la vie nocturne du Marais grâce aux cafés-théâtres. C’était le lieu où l'on pouvait assister à des créations théâtrales ou musicales alternatives. De jeunes musiciens y donnaient des spectacles, et des humoristes venaient tester leurs blagues en public. La plupart des cafés-théâtres étaient minuscules : une petite scène de trois mètres de large, avec quelques tables et des chaises tout autour. C’est là que j’ai découvert Sylvie Joly, la première femme humoriste de France.
+          </span></p>
+        
+          <p><span data-m="954468" lang="EN">
+            Ngofeen: Pascal loves these intimate dinner-shows — the closeness between performers and audience, the energy, the laughs. But what he loves the most is that people don’t take themselves too seriously. The evenings have a light-hearted, tongue-in-cheek feel.
+          </span></p>
+        
+          <p><span data-m="1008769" lang="FR">
+            Pascal: C’est tellement français. Pour moi, la difference entre la scène gay parisienne et celles des autres grandes villes du monde, c’est cette ambiance décontractée et un peu « village » qui existe encore.
+          </span></p>
+        
+          <p><span data-m="1008769" lang="EN">
+            Ngofeen: One of these cafés-théâtres is where Pascal first met a fixture of Paris’ gay nightlife, a comedian and singer known as Vartoch who does hilarious song parodies. Another entertainer Pascal loves is called DJ Hervé. He organizes parties called Les Follivores featuring French hits from the 70s.
+          </span></p>
+        
+          <p><span data-m="1047314" lang="FR">
+            Pascal: Aux Follivores, il y a de la musique rétro, comme celle des chanteurs Claude François et Sylvie Vartan. Mais tout le monde vient danser, même les jeunes de 18 à 30 ans. Ils n’ont jamais connu Claude François, mais ils dansent et chantent toute la nuit sur sa musique.
+          </span></p>
+        
+          <p><span data-m="1068023" lang="EN">
+            Ngofeen: On warmer evenings, parties in the Gay quarter frequently spill out into the street.
+          </span></p>
+        
+          <p><span data-m="1074033" lang="FR">
+            Pascal: Certaines nuits d’été, la rue Sainte-Croix de la Bretonnerie est fermée aux voitures. Les magasins jouent de la musique, et les gens dansent dans la rue ! Dans le Marais, si on en a envie, on peut s’amuser toute la nuit !
+          </span></p>
+        
+          <p><span data-m="1093626" lang="EN">
+            Ngofeen: After a long night out, Pascal might take an early walk to the north of Le Marais, where we’ll find our final stop: a French market that encapsulates the neighborhood’s multicultural community spirit. On a street called rue de Bretagne is the oldest food market in Paris. A green, wrought-iron gate opens onto a maze of stalls, restaurants, and cafés that fills an entire block. It’s called le Marché des Enfants Rouges because there used to be a nearby children’s orphanage, un orphelinat.
+          </span></p>
+        
+          <p><span data-m="1130035" lang="FR">
+            Pascal: Le Marché des Enfants Rouges a été créé en 1610. On lui a donné ce nom parce que dans le passé, il y avait un orphelinat dont les enfants portaient tous des vêtements rouges, pour les retrouver facilement dans la foule. J’aime beaucoup ce marché parce qu’on y trouve le monde entier.
+          </span></p>
+        
+          <p><span data-m="1154189" lang="EN">
+            Ngofeen: At Le Marché des Enfants Rouges, you can buy fresh produce and grab a bite to eat. The options are endless: the market has everything from Moroccan couscous to brick-oven pizza to fresh raw oysters. But today, Pascal heads past the seasonal fruit and vegetables, and into a small non-profit café, un café associatif, in the far corner of the market: le Troisième Café.
+          </span></p>
+        
+          <p><span data-m="1180832" lang="FR">
+            Pascal: J’aime beaucoup le Troisième Café. Ce petit café associatif propose des repas aux personnes qui ont peu d’argent. On peut manger un menu à trois plats pour 12 euros seulement. Quand j’y vais avec mes amis, on peut acheter des cafés ou des plats qu’on appelle “suspendus”.
+          </span></p>
+        
+          <p><span data-m="1200298" lang="EN">
+            Ngofeen: Un plat suspendu is a dish that you buy, not for yourself, but in advance — to pay it forward for a needy customer who might walk into the café. The tradition came from Belgium, and places like le Troisième Café are embracing it in the Marais spirit of community.
+          </span></p>
+        
+          <p><span data-m="1217002" lang="FR">
+            Pascal: Ce sont des exemples de solidarité et de partage entre voisins que l’on ne trouve vraiment pas partout. Ils représentent ce que j’aime le plus du Marais : son esprit de communauté, de tradition et de diversité. C’est pour cela que je ne peux pas m’imaginer vivre ailleurs.
+          </span></p>
+        
+          <p><span data-m="1241486" lang="EN">
+            Ngofeen: Pascal Fonquernie is a travel writer based in Le Marais and the founder of ParisMarais.com. He lives in Paris, France. This story was produced by Adonde Media’s Lorena Galliot. We'd love to know what you thought of this episode! You can write us an email at podcast@duolingo.com and call and leave us a voicemail or audio message on WhatsApp, at +1-703-953-93-69. Don’t forget to say your name and where you are from! Here’s a message we recently got from Allie in Pennsylvania:
+          </span></p>
+        
+          Allie: Hi, my name is Allie Seim, and I was actually just listening to the French podcast. The episode that I was listening to was the one about summer vacation, and I'm leaving on summer vacation in about three days, and we're going to be gone for a month. And I really love that one for getting excited about going on vacation.
+        
+          <p><span data-m="0" lang="EN">
+            Ngofeen: Thank you, Allie! We hope you had a nice vacation and that this season will inspire more travel all around! If you liked this story, please share it! You can find the audio and a transcript of each episode at podcast.duolingo.com. You can also follow us on Apple Podcasts or on your favorite listening app, so you never miss an episode. With over 500 million users, Duolingo is the world's leading language learning platform, and the most downloaded education app in the world. Duolingo believes in making education free, fun and available to everyone. Download the app today, or find out more at duolingo.com. The Duolingo French Podcast is produced by Duolingo and Adonde Media. I’m your host, Ngofeen Mputubwele, à la prochaine !*
+          </span></p>
+          Credits
+        
+          This episode was produced by Duolingo and Adonde Media.
+        
+          Narrator & Protagonist: Pascal Fonquernie
+          Producer: Lorena Galliot
+          Assistant Producer: Justine Hagard
+          Managing Editor: Natacha Ruck
+          Audio Editor & Sound Designer: Samia Bouzid
+          Supervising Sound Designer, Mixing & Mastering: Laurent Apffel
+          Production Coordinator: Nicolás Sosa
+          Production Manager: Román Frontini
+          Executive Producer: Martina Castro
+              </article>
+  </div>
 </div>
 
-<div class="content" role="main">
-
-  <!-- Highlight Card -->
-  <div class="card highlight-card card-small">
-
-    <svg id="rocket" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
-      <title>Rocket Ship</title>
-      <g id="Group_83" data-name="Group 83" transform="translate(-141 -696)">
-        <circle id="Ellipse_8" data-name="Ellipse 8" cx="50.839" cy="50.839" r="50.839" transform="translate(141 696)" fill="#dd0031"/>
-        <g id="Group_47" data-name="Group 47" transform="translate(165.185 720.185)">
-          <path id="Path_33" data-name="Path 33" d="M3.4,42.615a3.084,3.084,0,0,0,3.553,3.553,21.419,21.419,0,0,0,12.215-6.107L9.511,30.4A21.419,21.419,0,0,0,3.4,42.615Z" transform="translate(0.371 3.363)" fill="#fff"/>
-          <path id="Path_34" data-name="Path 34" d="M53.3,3.221A3.09,3.09,0,0,0,50.081,0,48.227,48.227,0,0,0,18.322,13.437c-6-1.666-14.991-1.221-18.322,7.218A33.892,33.892,0,0,1,9.439,25.1l-.333.666a3.013,3.013,0,0,0,.555,3.553L23.985,43.641a2.9,2.9,0,0,0,3.553.555l.666-.333A33.892,33.892,0,0,1,32.647,53.3c8.55-3.664,8.884-12.326,7.218-18.322A48.227,48.227,0,0,0,53.3,3.221ZM34.424,9.772a6.439,6.439,0,1,1,9.106,9.106,6.368,6.368,0,0,1-9.106,0A6.467,6.467,0,0,1,34.424,9.772Z" transform="translate(0 0.005)" fill="#fff"/>
-        </g>
-      </g>
-    </svg>
-
-    <span>{{ title }} app is running!</span>
-
-    <svg id="rocket-smoke" xmlns="http://www.w3.org/2000/svg" width="516.119" height="1083.632" viewBox="0 0 516.119 1083.632">
-      <title>Rocket Ship Smoke</title>
-      <path id="Path_40" data-name="Path 40" d="M644.6,141S143.02,215.537,147.049,870.207s342.774,201.755,342.774,201.755S404.659,847.213,388.815,762.2c-27.116-145.51-11.551-384.124,271.9-609.1C671.15,139.365,644.6,141,644.6,141Z" transform="translate(-147.025 -140.939)" fill="#f5f5f5"/>
-    </svg>
-
+<div class="flex-block bottom">
+  <div class="footer">
+    <!-- Rounded switch -->
+    <label class="switch">
+      <input id="set_lang" type="checkbox">
+      <span class="slider round"></span>
+    </label>
+    <form id="searchForm" style="float:right">
+      Playback Rate <span id="currentPbr">1</span><input id="pbr" type="range" value="1" min="0.5" max="3" step="0.1" style="width:50px">
+    </form>
   </div>
-
-  <!-- Resources -->
-  <h2>Resources</h2>
-  <p>Here are some links to help you get started:</p>
-
-  <div class="card-container">
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/tutorial">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
-      <span>Learn Angular</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/cli">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-      <span>CLI Documentation</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://material.angular.io">
-      <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px" width="21.813" height="23.453" viewBox="0 0 179.2 192.7"><path fill="#ffa726" d="M89.4 0 0 32l13.5 118.4 75.9 42.3 76-42.3L179.2 32 89.4 0z"/><path fill="#fb8c00" d="M89.4 0v192.7l76-42.3L179.2 32 89.4 0z"/><path fill="#ffe0b2" d="m102.9 146.3-63.3-30.5 36.3-22.4 63.7 30.6-36.7 22.3z"/><path fill="#fff3e0" d="M102.9 122.8 39.6 92.2l36.3-22.3 63.7 30.6-36.7 22.3z"/><path fill="#fff" d="M102.9 99.3 39.6 68.7l36.3-22.4 63.7 30.6-36.7 22.4z"/></svg>
-      <span>Angular Material</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://blog.angular.io/">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
-      <span>Angular Blog</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/devtools/">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M14.73,13.31C15.52,12.24,16,10.93,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.43,0,2.74-0.48,3.81-1.27L19.59,21L21,19.59L14.73,13.31z M9.5,14C7.01,14,5,11.99,5,9.5S7.01,5,9.5,5S14,7.01,14,9.5 S11.99,14,9.5,14z"/><polygon points="10.29,8.44 9.5,6 8.71,8.44 6.25,8.44 8.26,10.03 7.49,12.5 9.5,10.97 11.51,12.5 10.74,10.03 12.75,8.44"/></g></g></svg>
-      <span>Angular DevTools</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-  </div>
-
-  <!-- Next Steps -->
-  <h2>Next Steps</h2>
-  <p>What do you want to do next with your app?</p>
-
-  <input type="hidden" #selection>
-
-  <div class="card-container">
-    <button class="card card-small" (click)="selection.value = 'component'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>New Component</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'material'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Angular Material</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'pwa'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Add PWA Support</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'dependency'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Add Dependency</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'test'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Run and Watch Tests</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'build'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Build for Production</span>
-    </button>
-  </div>
-
-  <!-- Terminal -->
-  <div class="terminal" [ngSwitch]="selection.value">
-      <pre *ngSwitchDefault>ng generate component xyz</pre>
-      <pre *ngSwitchCase="'material'">ng add @angular/material</pre>
-      <pre *ngSwitchCase="'pwa'">ng add @angular/pwa</pre>
-      <pre *ngSwitchCase="'dependency'">ng add _____</pre>
-      <pre *ngSwitchCase="'test'">ng test</pre>
-      <pre *ngSwitchCase="'build'">ng build</pre>
-  </div>
-
-  <!-- Links -->
-  <div class="card-container">
-    <a class="circle-link" title="Find a Local Meetup" href="https://www.meetup.com/find/?keywords=angular" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24.607" height="23.447" viewBox="0 0 24.607 23.447">
-        <title>Meetup Logo</title>
-        <path id="logo--mSwarm" d="M21.221,14.95A4.393,4.393,0,0,1,17.6,19.281a4.452,4.452,0,0,1-.8.069c-.09,0-.125.035-.154.117a2.939,2.939,0,0,1-2.506,2.091,2.868,2.868,0,0,1-2.248-.624.168.168,0,0,0-.245-.005,3.926,3.926,0,0,1-2.589.741,4.015,4.015,0,0,1-3.7-3.347,2.7,2.7,0,0,1-.043-.38c0-.106-.042-.146-.143-.166a3.524,3.524,0,0,1-1.516-.69A3.623,3.623,0,0,1,2.23,14.557a3.66,3.66,0,0,1,1.077-3.085.138.138,0,0,0,.026-.2,3.348,3.348,0,0,1-.451-1.821,3.46,3.46,0,0,1,2.749-3.28.44.44,0,0,0,.355-.281,5.072,5.072,0,0,1,3.863-3,5.028,5.028,0,0,1,3.555.666.31.31,0,0,0,.271.03A4.5,4.5,0,0,1,18.3,4.7a4.4,4.4,0,0,1,1.334,2.751,3.658,3.658,0,0,1,.022.706.131.131,0,0,0,.1.157,2.432,2.432,0,0,1,1.574,1.645,2.464,2.464,0,0,1-.7,2.616c-.065.064-.051.1-.014.166A4.321,4.321,0,0,1,21.221,14.95ZM13.4,14.607a2.09,2.09,0,0,0,1.409,1.982,4.7,4.7,0,0,0,1.275.221,1.807,1.807,0,0,0,.9-.151.542.542,0,0,0,.321-.545.558.558,0,0,0-.359-.534,1.2,1.2,0,0,0-.254-.078c-.262-.047-.526-.086-.787-.138a.674.674,0,0,1-.617-.75,3.394,3.394,0,0,1,.218-1.109c.217-.658.509-1.286.79-1.918a15.609,15.609,0,0,0,.745-1.86,1.95,1.95,0,0,0,.06-1.073,1.286,1.286,0,0,0-1.051-1.033,1.977,1.977,0,0,0-1.521.2.339.339,0,0,1-.446-.042c-.1-.092-.2-.189-.307-.284a1.214,1.214,0,0,0-1.643-.061,7.563,7.563,0,0,1-.614.512A.588.588,0,0,1,10.883,8c-.215-.115-.437-.215-.659-.316a2.153,2.153,0,0,0-.695-.248A2.091,2.091,0,0,0,7.541,8.562a9.915,9.915,0,0,0-.405.986c-.559,1.545-1.015,3.123-1.487,4.7a1.528,1.528,0,0,0,.634,1.777,1.755,1.755,0,0,0,1.5.211,1.35,1.35,0,0,0,.824-.858c.543-1.281,1.032-2.584,1.55-3.875.142-.355.28-.712.432-1.064a.548.548,0,0,1,.851-.24.622.622,0,0,1,.185.539,2.161,2.161,0,0,1-.181.621c-.337.852-.68,1.7-1.018,2.552a2.564,2.564,0,0,0-.173.528.624.624,0,0,0,.333.71,1.073,1.073,0,0,0,.814.034,1.22,1.22,0,0,0,.657-.655q.758-1.488,1.511-2.978.35-.687.709-1.37a1.073,1.073,0,0,1,.357-.434.43.43,0,0,1,.463-.016.373.373,0,0,1,.153.387.7.7,0,0,1-.057.236c-.065.157-.127.316-.2.469-.42.883-.846,1.763-1.262,2.648A2.463,2.463,0,0,0,13.4,14.607Zm5.888,6.508a1.09,1.09,0,0,0-2.179.006,1.09,1.09,0,0,0,2.179-.006ZM1.028,12.139a1.038,1.038,0,1,0,.01-2.075,1.038,1.038,0,0,0-.01,2.075ZM13.782.528a1.027,1.027,0,1,0-.011,2.055A1.027,1.027,0,0,0,13.782.528ZM22.21,6.95a.882.882,0,0,0-1.763.011A.882.882,0,0,0,22.21,6.95ZM4.153,4.439a.785.785,0,1,0,.787-.78A.766.766,0,0,0,4.153,4.439Zm8.221,18.22a.676.676,0,1,0-.677.666A.671.671,0,0,0,12.374,22.658ZM22.872,12.2a.674.674,0,0,0-.665.665.656.656,0,0,0,.655.643.634.634,0,0,0,.655-.644A.654.654,0,0,0,22.872,12.2ZM7.171-.123A.546.546,0,0,0,6.613.43a.553.553,0,1,0,1.106,0A.539.539,0,0,0,7.171-.123ZM24.119,9.234a.507.507,0,0,0-.493.488.494.494,0,0,0,.494.494.48.48,0,0,0,.487-.483A.491.491,0,0,0,24.119,9.234Zm-19.454,9.7a.5.5,0,0,0-.488-.488.491.491,0,0,0-.487.5.483.483,0,0,0,.491.479A.49.49,0,0,0,4.665,18.936Z" transform="translate(0 0.123)" fill="#f64060"/>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="Join the Conversation on Discord" href="https://discord.gg/angular" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 245 240">
-        <title>Discord Logo</title>
-        <path d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zM140.9 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z"/>
-        <path d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/>
-      </svg>
-    </a>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-      Love Angular?&nbsp;
-      <a href="https://github.com/angular/angular" target="_blank" rel="noopener"> Give our repo a star.
-        <div class="github-star-badge">
-            <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          Star
-        </div>
-      </a>
-      <a href="https://github.com/angular/angular" target="_blank" rel="noopener">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-      </a>
-  </footer>
-
-  <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
-    <title>Gray Clouds Background</title>
-    <path id="Path_39" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
-  </svg>
-
-</div>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
+</div>  

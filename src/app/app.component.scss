@@ -105,3 +105,17 @@ input#pbr {
   accent-color:  #2196F3;
 }
 
+
+/* halEditor */
+[data-m-0] {
+  border: 1px dotted darkgrey;
+}
+
+[data-m].data-changed {
+  background-color: lightcyan !important;
+}
+
+[data-m].data-commit {
+  border: 1px solid black;
+  background-color: lightblue !important;
+}
